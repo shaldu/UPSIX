@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <entt.hpp>
-#include <chrono>
+#include "src/game.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -10,17 +10,19 @@ int main(int argc, char *argv[])
 
     Uint32 frameStart, frameTime;
     Uint32 frameCounterStart = SDL_GetTicks();
-
+    double deltaTime = 0.0f;
     int frameCount = 0;
     float fpsSum = 0.0f;
 
-    bool isRunning = true;
+    Game *game = new Game();
+    
+    bool isRunning = game->init("Game", 800, 600);
 
     while (isRunning)
     {
         frameStart = SDL_GetTicks();
 
-        std::cout << "Hello, world!\n";
+        game->render(deltaTime);
 
         frameTime = SDL_GetTicks() - frameStart;
 
@@ -30,7 +32,8 @@ int main(int argc, char *argv[])
         }
 
         frameTime = SDL_GetTicks() - frameStart; // update frameTime after potential delay
-
+        deltaTime = frameTime / 1000.0f; // convert to seconds
+        
         // calculate fps
         if (frameTime > 0) {
             fpsSum += 1000.0f / frameTime;
