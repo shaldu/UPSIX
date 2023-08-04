@@ -20,7 +20,7 @@ else
     LFLAGS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image
 	TARGET := main.exe
 	SRC := main.cpp src/*
-	RUN_TARGET := start C:\Users\shaldy\Documents\cppG\main.exe
+	RUN_TARGET := .\main.exe
 endif
 
 # Build target
@@ -32,6 +32,9 @@ mac:
 # Run target windows
 win:
 	$(CXX) $(CXXFLAGS) $(SDL_INCLUDE) $(SRC) $(SDL_LIB) ${LFLAGS} -o $(TARGET) -static-libstdc++ -mwindows
+	$(RUN_TARGET)
+
+run:
 	$(RUN_TARGET)
 
 buildmac:

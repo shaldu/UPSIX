@@ -2,7 +2,9 @@
 
 void Game::clean()
 {
-
+    SDL_DestroyRenderer(m_renderer);
+    SDL_DestroyWindow(m_window);
+    SDL_Quit();
 }
 
 bool Game::init(const char *title, int width, int height, int x, int y, bool fullscreen)
@@ -27,10 +29,36 @@ bool Game::init(const char *title, int width, int height, int x, int y, bool ful
     return true;
 }
 
-void Game:render(float deltaTime)
+void Game::render(float deltaTime)
 {
-    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(m_renderer, 33, 33, 33, 255);
     SDL_RenderClear(m_renderer);
 
     SDL_RenderPresent(m_renderer);
+}
+
+void Game::handleEvents()
+{
+    SDL_PollEvent(&m_event);
+    switch (m_event.type)
+    {
+    case SDL_QUIT:
+        m_isRunning = false;
+        break;
+
+    case SDL_WINDOWEVENT:
+        if (m_event.window.event == SDL_WINDOWEVENT_CLOSE && m_event.window.windowID == SDL_GetWindowID(m_window))
+            m_isRunning = false;
+        break;
+
+    case SDL_KEYDOWN:
+        if (m_event.key.keysym.sym == SDLK_ESCAPE)
+        {
+            m_isRunning = false;
+        }
+        break;
+
+    default:
+        break;
+    }
 }

@@ -14,5 +14,7 @@ public:
 
     bool init(const char *title, int width, int height, int x = SDL_WINDOWPOS_UNDEFINED, int y = SDL_WINDOWPOS_UNDEFINED, bool fullscreen = false);
     void clean();
+    void handleEvents();
     void render(float deltaTime);
+    bool isRunning() { return m_isRunning; };
 };

@@ -15,13 +15,13 @@ int main(int argc, char *argv[])
     float fpsSum = 0.0f;
 
     Game *game = new Game();
-    
-    bool isRunning = game->init("Game", 800, 600);
+    game->init("Game", 800, 600);
 
-    while (isRunning)
+    while (game->isRunning())
     {
         frameStart = SDL_GetTicks();
 
+        game->handleEvents();
         game->render(deltaTime);
 
         frameTime = SDL_GetTicks() - frameStart;
@@ -48,5 +48,6 @@ int main(int argc, char *argv[])
         }
     }
 
+    game->clean();
     return EXIT_SUCCESS;
 }
