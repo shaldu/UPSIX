@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <entt.hpp>
-#include "src/game.hpp"
+#include "./src/game.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         frameStart = SDL_GetTicks();
 
         game->handleEvents();
-        game->render(deltaTime);
+        game->render(deltaTime, fpsSum / frameCount);
 
         frameTime = SDL_GetTicks() - frameStart;
 
@@ -38,13 +38,6 @@ int main(int argc, char *argv[])
         if (frameTime > 0) {
             fpsSum += 1000.0f / frameTime;
             frameCount++;
-        }
-
-        if (SDL_GetTicks() - frameCounterStart >= 1000) {
-            std::cout << "FPS: " << fpsSum / frameCount << "\n";
-            frameCounterStart = SDL_GetTicks();
-            fpsSum = 0.0f;
-            frameCount = 0;
         }
     }
 
