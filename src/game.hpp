@@ -1,7 +1,8 @@
 #pragma once
 #include <SDL.h>
-#include <SDL_ttf.h>
 #include <iostream>
+#include "../includes/glm/glm.hpp"
+
 class Game
 {
 private:
@@ -9,7 +10,6 @@ private:
     SDL_Window *m_window;
     SDL_Renderer *m_renderer;
     SDL_Event m_event;
-    TTF_Font *m_font;
 
 public:
     Game() : m_isRunning(false), m_window(nullptr), m_renderer(nullptr){};
@@ -19,6 +19,5 @@ public:
     void clean();
     void handleEvents();
     void render(float deltaTime, int fps);
-    void drawFPS(int fps);
     bool isRunning() { return m_isRunning; };
 };

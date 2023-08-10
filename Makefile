@@ -5,8 +5,8 @@ SRCS := main.cpp
 ifeq ($(shell uname -s),Darwin)
     # Mac OS X
     CXX := clang++
-    CXXFLAGS := -std=c++17 -I frameworks/SDL2.framework/Headers -I frameworks/SDL2_ttf.framework/Headers -I frameworks/SDL2_image.framework/Headers -I entt/include
-    LFLAGS := -F frameworks -framework SDL2 -framework SDL2_ttf -framework SDL2_image
+    CXXFLAGS := -std=c++17 -I includes/frameworks/SDL2.framework/Headers -I includes/entt/include -I includes/glm -I src
+    LFLAGS := -F includes/frameworks -framework SDL2
 	OBJS :=
 	TARGET :=main.cpp src/*
 	RUN_TARGET := ./app.out
@@ -15,9 +15,9 @@ else
     # Assume Windows
     CXX := g++ # or use your Windows C++ compiler
     CXXFLAGS := -std=c++17
-	SDL_LIB := -L SDL2/src/lib -L SDL2_ttf/src/lib -L SDL2_image/src/lib
-	SDL_INCLUDE := -I SDL2/src/include/SDL2 -I SDL2_ttf/src/include/SDL2 -I SDL2_image/src/include/SDL2 -I entt/include -I src
-    LFLAGS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image
+	SDL_LIB := -L includes/SDL2/src/lib
+	SDL_INCLUDE := -I includes/SDL2/src/include/SDL2 includes/entt/include -I src -I includes/glm
+    LFLAGS := -lmingw32 -lSDL2main -lSDL2
 	TARGET := main.exe
 	SRC := main.cpp src/*
 	RUN_TARGET := .\main.exe
